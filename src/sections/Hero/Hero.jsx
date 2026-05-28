@@ -25,9 +25,9 @@ export default function Hero() {
     <section id="hero" style={{
       minHeight: "100vh", display: "flex", alignItems: "center",
       justifyContent: "center", textAlign: "center",
-      padding: "80px 24px 0", position: "relative", zIndex: 2
+      padding: "100px 20px 40px", position: "relative", zIndex: 2
     }}>
-      <div style={{ maxWidth: 760 }}>
+      <div style={{ maxWidth: 760, width: "100%" }}>
 
         <div style={{
           display: "inline-block",
@@ -40,7 +40,7 @@ export default function Hero() {
 
         <h1 style={{
           fontFamily: "Crimson Pro,serif",
-          fontSize: "clamp(44px,9vw,96px)",
+          fontSize: "clamp(40px,9vw,96px)",
           fontWeight: 300, fontStyle: "italic",
           lineHeight: 1.05, marginBottom: 28,
           background: "linear-gradient(135deg,#fff 0%,#00e5ff 55%,#7b2fff 100%)",
@@ -59,7 +59,9 @@ export default function Hero() {
           storytelling, and creating, I started rebuilding myself.
         </p>
 
-        <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+        <div className="hero-buttons" style={{
+          display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap"
+        }}>
           <button onClick={() => document.getElementById("story")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               background: "linear-gradient(135deg,var(--cyan),var(--purple))",

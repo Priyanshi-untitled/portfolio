@@ -2,11 +2,45 @@ import { useState } from "react";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", msg: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle");
+
+  const handleSubmit = async () => {
+    if (!form.name.trim() || !form.email.trim() || !form.msg.trim()) {
+      alert("Please fill in all fields!");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const response = await fetch("https://formspree.io/f/xojbybqj", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.msg
+        })
+      });
+      if (response.ok) {
+        setStatus("sent");
+        setForm({ name: "", email: "", msg: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
+  const inputStyle = {
+    background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)",
+    borderRadius: 10, padding: "14px 18px", color: "var(--text)",
+    fontFamily: "Space Mono,monospace", fontSize: 12, outline: "none",
+    width: "100%", boxSizing: "border-box", transition: "border-color 0.3s"
+  };
 
   return (
     <section id="contact" style={{
-      padding: "80px 40px", maxWidth: 640,
+      padding: "80px 20px", maxWidth: 640,
       margin: "0 auto", position: "relative", zIndex: 2
     }}>
       <div className="section-reveal">
@@ -19,7 +53,7 @@ export default function Contact() {
           }}>Leave a thought<br />in my universe.</h2>
         </div>
 
-        {sent ? (
+        {status === "sent" ? (
           <div style={{
             background: "rgba(255,255,255,0.035)", border: "1px solid var(--border)",
             borderRadius: 18, padding: 52, textAlign: "center"
@@ -29,41 +63,66 @@ export default function Contact() {
             <p style={{ color: "var(--muted)", fontFamily: "Crimson Pro,serif", fontStyle: "italic", fontSize: 18 }}>
               It's floating somewhere in my universe now.
             </p>
+            <button onClick={() => setStatus("idle")} style={{
+              marginTop: 20, background: "transparent",
+              border: "1px solid var(--border)", color: "var(--cyan)",
+              padding: "10px 22px", borderRadius: 10,
+              fontFamily: "Space Mono,monospace", fontSize: 11, cursor: "pointer"
+            }}>✦ Send another</button>
           </div>
         ) : (
           <div style={{
             background: "rgba(255,255,255,0.035)", border: "1px solid var(--border)",
-            borderRadius: 18, padding: 30
+            borderRadius: 18, padding: "28px 24px"
           }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {[
-                { key: "name", placeholder: "Your name", type: "input" },
-                { key: "email", placeholder: "Your email", type: "input" },
-                { key: "msg", placeholder: "Your thought…", type: "textarea" }
-              ].map(f => f.type === "input" ? (
-                <input key={f.key} placeholder={f.placeholder} value={form[f.key]}
-                  onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                  style={{
-                    background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)",
-                    borderRadius: 10, padding: "14px 18px", color: "var(--text)",
-                    fontFamily: "Space Mono,monospace", fontSize: 12, outline: "none", width: "100%"
-                  }} />
-              ) : (
-                <textarea key={f.key} rows={5} placeholder={f.placeholder} value={form[f.key]}
-                  onChange={e => setForm({ ...form, [f.key]: e.target.value })}
-                  style={{
-                    background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)",
-                    borderRadius: 10, padding: "14px 18px", color: "var(--text)",
-                    fontFamily: "Space Mono,monospace", fontSize: 12,
-                    outline: "none", resize: "vertical", width: "100%"
-                  }} />
-              ))}
-              <button onClick={() => setSent(true)} style={{
-                background: "linear-gradient(135deg,var(--cyan),var(--purple))",
-                border: "none", color: "#fff", padding: "13px 28px",
-                borderRadius: 10, fontFamily: "Space Mono,monospace",
-                fontSize: 12, cursor: "pointer", alignSelf: "flex-start"
-              }}>✦ Send into the universe</button>
+              <input
+                placeholder="Your name"
+                value={form.name}
+                onChange={e => setForm({ ...form, name: e.target.value })}
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = "rgba(0,229,255,0.4)"}
+                onBlur={e => e.target.style.borderColor = "var(--border)"}
+              />
+              <input
+                type="email"
+                placeholder="Your email"
+                value={form.email}
+                onChange={e => setForm({ ...form, email: e.target.value })}
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = "rgba(0,229,255,0.4)"}
+                onBlur={e => e.target.style.borderColor = "var(--border)"}
+              />
+              <textarea
+                rows={5}
+                placeholder="Your thought…"
+                value={form.msg}
+                onChange={e => setForm({ ...form, msg: e.target.value })}
+                style={{ ...inputStyle, resize: "vertical" }}
+                onFocus={e => e.target.style.borderColor = "rgba(0,229,255,0.4)"}
+                onBlur={e => e.target.style.borderColor = "var(--border)"}
+              />
+
+              {status === "error" && (
+                <p style={{ color: "#ff6b6b", fontSize: 11, fontFamily: "Space Mono,monospace" }}>
+                  ✕ Something went wrong. Please try again.
+                </p>
+              )}
+
+              <button
+                onClick={handleSubmit}
+                disabled={status === "sending"}
+                style={{
+                  background: status === "sending"
+                    ? "rgba(0,229,255,0.15)"
+                    : "linear-gradient(135deg,var(--cyan),var(--purple))",
+                  border: "none", color: "#fff", padding: "13px 28px",
+                  borderRadius: 10, fontFamily: "Space Mono,monospace",
+                  fontSize: 12, cursor: status === "sending" ? "not-allowed" : "pointer",
+                  alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1
+                }}>
+                {status === "sending" ? "↻ Sending…" : "✦ Send into the universe"}
+              </button>
             </div>
           </div>
         )}
