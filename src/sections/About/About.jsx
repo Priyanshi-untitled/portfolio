@@ -39,7 +39,6 @@ export default function About() {
       {/* Education */}
       <div className="section-reveal" style={{ marginBottom: 80 }}>
         <div style={{ textAlign: "center", marginBottom: 44 }}>
-          <div style={{ color: "var(--cyan)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>✦ academic journey</div>
           <h2 style={{
             fontFamily: "Syne,sans-serif", fontSize: "clamp(30px,5vw,54px)", fontWeight: 800,
             background: "linear-gradient(135deg,#fff,#7b2fff)",
@@ -80,7 +79,6 @@ export default function About() {
       {/* Clubs */}
       <div className="section-reveal" style={{ marginBottom: 80 }}>
         <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <div style={{ color: "var(--purple)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>✦ campus life</div>
           <h2 style={{
             fontFamily: "Syne,sans-serif", fontSize: "clamp(30px,5vw,54px)", fontWeight: 800,
             background: "linear-gradient(135deg,#fff,#7b2fff)",
@@ -108,7 +106,6 @@ export default function About() {
       {/* Hackathons */}
       <div className="section-reveal">
         <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <div style={{ color: "var(--green)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12 }}>✦ proof of work</div>
           <h2 style={{
             fontFamily: "Syne,sans-serif", fontSize: "clamp(30px,5vw,54px)", fontWeight: 800,
             background: "linear-gradient(135deg,#fff,#00ff88)",
