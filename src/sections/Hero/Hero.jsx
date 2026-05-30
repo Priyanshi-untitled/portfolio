@@ -29,15 +29,6 @@ export default function Hero() {
     }}>
       <div style={{ maxWidth: 760, width: "100%" }}>
 
-        <div style={{
-          display: "inline-block",
-          background: "rgba(0,229,255,0.07)",
-          border: "1px solid rgba(0,229,255,0.2)",
-          borderRadius: 100, padding: "6px 20px",
-          fontSize: 11, letterSpacing: "0.15em",
-          color: "var(--cyan)", marginBottom: 28, textTransform: "uppercase"
-        }}>✦ Developer & Creator</div>
-
         <h1 style={{
           fontFamily: "Crimson Pro,serif",
           fontSize: "clamp(40px,9vw,96px)",
