@@ -20,10 +20,6 @@ export default function Skills() {
       <div className="section-reveal">
 
         <div style={{ textAlign: "center", marginBottom: 52 }}>
-          <div style={{
-            color: "var(--cyan)", fontSize: 11,
-            letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12
-          }}>✦ arsenal</div>
           <h2 style={{
             fontFamily: "Syne,sans-serif", fontSize: "clamp(30px,5vw,54px)", fontWeight: 800,
             background: "linear-gradient(135deg,#fff,#7b2fff)",
