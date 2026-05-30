@@ -13,10 +13,6 @@ export default function Story() {
     <section id="story" style={{ padding: "80px 40px", maxWidth: 900, margin: "0 auto",position: "relative", zIndex: 2 }}>
       <div className="section-reveal">
         <div style= {{ textAlign: "center", marginBottom: 52}}>
-          <div style={{
-            color: "var(--orange)", fontSize: 11,
-            letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 12
-          }}>✦ the story so far</div>
           <h2 style={{
             fontFamily: "Syne,sans-serif", fontSize: "clamp(30px,5vw,54px)",
             fontWeight: 800,
